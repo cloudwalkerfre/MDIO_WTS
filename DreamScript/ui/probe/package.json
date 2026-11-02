@@ -1,0 +1,29 @@
+{
+  "name": "exp_scripts_probe",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "esmx": {
+    "uses": [
+      "ui_base"
+    ],
+    "exports": {
+      "./probe.jsx": "./src/probe.jsx"
+    }
+  },
+  "//": "构建型 mod 探针：证明 @esmx/router 家族能在 wt 里真实使用（依赖打进产物，不依赖 import map）。",
+  "dependencies": {
+    "@esmx/router": "3.0.0-rc.123",
+    "@esmx/router-react": "3.0.0-rc.123"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.3.0",
+    "mobx": "^7.0.6",
+    "mobx-react-lite": "^5.1.0",
+    "mobx-state-tree": "^8.0.0",
+    "react/jsx-runtime": "^19.0.0",
+    "react/jsx-dev-runtime": "^19.0.0",
+    "react-dom/client": "^19.3.0"
+  }
+}

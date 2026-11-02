@@ -1,0 +1,3 @@
+# chat session placeholder（会话文档目录；本文件不是会话）
+
+- 说明: mdio 的 chat 会把每轮会话写成 `/chat/<sid>.md`。

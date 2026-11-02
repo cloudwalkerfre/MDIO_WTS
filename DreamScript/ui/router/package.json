@@ -1,0 +1,29 @@
+{
+  "name": "exp_scripts_router",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "esmx": {
+    "uses": [
+      "ui_base"
+    ],
+    "exports": {
+      "./shell.jsx": "./src/shell.jsx"
+    }
+  },
+  "//": "路由外壳 mod：把 @esmx/router 包成 md 内嵌组件可直接用的 RouterShell + hooks（md 内嵌组件走 import map 的 mod 键）。",
+  "dependencies": {
+    "@esmx/router": "3.0.0-rc.123",
+    "@esmx/router-react": "3.0.0-rc.123"
+  },
+  "peerDependencies": {
+    "mobx": "^7.0.6",
+    "mobx-react-lite": "^5.1.0",
+    "mobx-state-tree": "^8.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.3.0",
+    "react/jsx-runtime": "^19.0.0",
+    "react/jsx-dev-runtime": "^19.0.0",
+    "react-dom/client": "^19.3.0"
+  }
+}

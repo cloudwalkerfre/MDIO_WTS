@@ -1,0 +1,14 @@
+{
+  "name": "wtui_exp_scripts",
+  "//rule9": "规则 9：<wt 根>/ui 的包名必须是 wtui_<uid>（原先 exp_scripts-ui 被判红）",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "//": "本树 ui/ 的共享依赖落点（照 exp_swap/ui、exp_app/ui）。构建型 mod 从树级 node_modules 解析共享依赖。子路径名（react/jsx-runtime 等）不写在这里 —— pnpm 不接受，写进 mod 自己的 peerDependencies。",
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.3.0",
+    "@esmx/router": "3.0.0-rc.123",
+    "@esmx/router-react": "3.0.0-rc.123"
+  }
+}

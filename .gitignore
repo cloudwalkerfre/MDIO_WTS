@@ -1,0 +1,41 @@
+**/node_modules/
+**/.wal/
+**/.tmp/
+**/.mds/cache/
+**/.mds/mounts/
+.DS_Store
+*.log
+
+# 运行态：注册表/运行信息含本机绝对路径与 pid，不入库（真相源 = install.md）
+**/.mds/worktrees.md
+**/.mds/runtime.md
+
+# mdio_py 运行期错误落盘：exec 异常时会以 root 身份写 genesis 的 /system_error.md，不入库
+**/system_error.md
+
+# 插件运行态：agent/HIS、provider 密钥配置、进程、执行日志、快照、本地 env 均不入库
+**/.mds/llm.md
+**/.mds/llm_config.md
+**/.mds/bash.md
+**/.mds/hook.md
+**/.mds/proc.md
+**/.mds/snap.md
+**/.mds/env.md
+**/var/
+
+# 迁移备份（mounts 孤儿等）
+.backups/
+
+# wt ui 构建产物（build-wt-ui 生成；构建前不存在，重新构建可再生成）
+**/ui/dist
+**/ui/dist.gen*
+**/ui/**/dist
+**/ui/**/dist.gen*
+**/ui/.esmx-build.json
+**/ui/**/.esmx-build.json
+**/ui/.staging/
+**/ui/**/.staging/
+**/ui/.staging.lock
+
+# chat app 的会话文档：用户对话内容，运行态，不入库（保留 .keep 占位）
+chat/wt/chat/*.md

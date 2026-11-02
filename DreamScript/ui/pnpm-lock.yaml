@@ -1,0 +1,152 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@esmx/router':
+        specifier: 3.0.0-rc.123
+        version: 3.0.0-rc.123
+      '@esmx/router-react':
+        specifier: 3.0.0-rc.123
+        version: 3.0.0-rc.123(react@19.3.0)
+      react:
+        specifier: ^19.0.0
+        version: 19.3.0
+      react-dom:
+        specifier: ^19.3.0
+        version: 19.3.0(react@19.3.0)
+
+  probe:
+    dependencies:
+      '@esmx/router':
+        specifier: 3.0.0-rc.123
+        version: 3.0.0-rc.123
+      '@esmx/router-react':
+        specifier: 3.0.0-rc.123
+        version: 3.0.0-rc.123(react@19.3.0)
+      mobx:
+        specifier: ^6.13.5
+        version: 6.16.1
+      mobx-react-lite:
+        specifier: ^4.0.7
+        version: 4.1.1(mobx@6.16.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      mobx-state-tree:
+        specifier: ^7.0.0
+        version: 7.4.0(mobx@6.16.1)
+      react:
+        specifier: ^19.0.0
+        version: 19.3.0
+      react-dom:
+        specifier: ^19.3.0
+        version: 19.3.0(react@19.3.0)
+
+packages:
+
+  '@esmx/router-react@3.0.0-rc.123':
+    resolution: {integrity: sha512-V3qGIZZD3GNc9eO5ZiPZTfpdbY4Vf+nvi4ZcWD8qQHkAa42F6vQcHwWol2Q55S97fFXJmiTH+CyKwiIQEX1G1Q==}
+    engines: {node: '>=24'}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+
+  '@esmx/router@3.0.0-rc.123':
+    resolution: {integrity: sha512-fYE28xjMfPElOZEw1h5VWwDbLLpOUMBfwFZ/1ineCvDBKKwn1+n1qu6RPlYoF+pJn+6ud13oqaCJeQLzBiW+lA==}
+    engines: {node: '>=24'}
+
+  mobx-react-lite@4.1.1:
+    resolution: {integrity: sha512-iUxiMpsvNraCKXU+yPotsOncNNmyeS2B5DKL+TL6Tar/xm+wwNJAubJmtRSeAoYawdZqwv8Z/+5nPRHeQxTiXg==}
+    peerDependencies:
+      mobx: ^6.9.0
+      react: ^16.8.0 || ^17 || ^18 || ^19
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+
+  mobx-state-tree@7.4.0:
+    resolution: {integrity: sha512-NfOgl47Eov6tgfmIWZCJiflBn+kuQScOd4uSZjygNgZuKT/heXggmA27KfxNxp6PZrxkROliA1yAApnsPww4JA==}
+    peerDependencies:
+      mobx: ^6.3.0
+
+  mobx@6.16.1:
+    resolution: {integrity: sha512-syNcDdX3KT+Jq3je6eGjBhuc24Z68td2VG0zNFqRswaE433D9SNH5VRy/xrGbJsUixfppLLccXhAW9JSf6n+SQ==}
+
+  path-to-regexp@6.3.0:
+    resolution: {integrity: sha512-Yhpw4T9C6hPpgPeA28us07OJeqZ5EzQTkbfwuhsUg0c237RomFoETJgmp2sa3F/41gfLE6G5cqcYwznmeEeOlQ==}
+
+  react-dom@19.3.0:
+    resolution: {integrity: sha512-JDk8dgif51OjFoDE70+OT9ICyYr+69HlmihNwp1+Nsfbna3t5sIiCa9ZJktDmQ4/1b/rn26hIAR2uYXDMr5r0Q==}
+    peerDependencies:
+      react: ^19.3.0
+
+  react@19.3.0:
+    resolution: {integrity: sha512-E8LUcbtBWt20bbl2YoHfx4ZDBdxVTfOKtCZn9cDSJ4l6/nuoApcpIBcj47t2wZoVX8g2ZHuMHbiShgCR1T5Sog==}
+    engines: {node: '>=0.10.0'}
+
+  scheduler@0.28.0:
+    resolution: {integrity: sha512-juorfCmIkIw8tT+p5BXSm6PJjQF/ycEYmKyzURCIt/RaZIhL+PulbQ9Yu2z1HdOJDdqDTlxA1+xKBmHXJsczAw==}
+
+  ts-essentials@9.4.2:
+    resolution: {integrity: sha512-mB/cDhOvD7pg3YCLk2rOtejHjjdSi9in/IBYE13S+8WA5FBSraYf4V/ws55uvs0IvQ/l0wBOlXy5yBNZ9Bl8ZQ==}
+    peerDependencies:
+      typescript: '>=4.1.0'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
+  use-sync-external-store@1.7.0:
+    resolution: {integrity: sha512-6L+EeigHMQhdaIPNIFUKwfWJSwWFQ8gJbJ2DLOs5sDIegTwR9fRxvnM3uciHKjIZhFz+KAv2emhWMRvDmMcY8A==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+snapshots:
+
+  '@esmx/router-react@3.0.0-rc.123(react@19.3.0)':
+    dependencies:
+      '@esmx/router': 3.0.0-rc.123
+      react: 19.3.0
+
+  '@esmx/router@3.0.0-rc.123':
+    dependencies:
+      path-to-regexp: 6.3.0
+
+  mobx-react-lite@4.1.1(mobx@6.16.1)(react-dom@19.3.0(react@19.3.0))(react@19.3.0):
+    dependencies:
+      mobx: 6.16.1
+      react: 19.3.0
+      use-sync-external-store: 1.7.0(react@19.3.0)
+    optionalDependencies:
+      react-dom: 19.3.0(react@19.3.0)
+
+  mobx-state-tree@7.4.0(mobx@6.16.1):
+    dependencies:
+      mobx: 6.16.1
+      ts-essentials: 9.4.2
+    transitivePeerDependencies:
+      - typescript
+
+  mobx@6.16.1: {}
+
+  path-to-regexp@6.3.0: {}
+
+  react-dom@19.3.0(react@19.3.0):
+    dependencies:
+      react: 19.3.0
+      scheduler: 0.28.0
+
+  react@19.3.0: {}
+
+  scheduler@0.28.0: {}
+
+  ts-essentials@9.4.2: {}
+
+  use-sync-external-store@1.7.0(react@19.3.0):
+    dependencies:
+      react: 19.3.0
