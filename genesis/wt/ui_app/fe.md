@@ -35,7 +35,7 @@
 ## app
 
 ```jsx@app
-import { createElement as h, useEffect, useRef, useState } from "react";
+import { createElement as h, Fragment, useEffect, useRef, useState } from "react";
 import { types, getEnv, flow } from "mobx-state-tree";
 import { observable } from "mobx";
 import { observer } from "mobx-react-lite";
@@ -216,6 +216,23 @@ export const Store = types
 const TEACH_DOC = (id) => "/ui_app/teach/" + id + ".md";
 const TEACH_DOC_LANG = (id, lang) => "/ui_app/teach/" + id + "." + (lang === "en" ? "en" : "zh") + ".md";
 
+/** 页首 hero 章：这类章节被移到 teach-layout 之外单独成块（拿满主区宽度，同 ui 页首图口径），
+ *  正文里不再重复渲染；标题随 hero 一起上移。 */
+const TEACH_HERO = { arrow: { zh: "演示", en: "Demo" } };
+
+/** 标题文本可能是 run 数组（含 `_` 等标点的标题会被切段）——比较前摊平成字符串。 */
+const flatTitle = (v) => {
+  if (v == null) return "";
+  if (typeof v === "string") return v;
+  if (Array.isArray(v) || (v && typeof v.length === "number")) {
+    let s = "";
+    for (const c of Array.prototype.slice.call(v)) s += flatTitle(c);
+    return s;
+  }
+  if (typeof v === "object") return flatTitle(v.ct != null ? v.ct : v.t);
+  return String(v);
+};
+
 /**
  * antd 教学页 = 两篇独立数据 md（上下两篇）：COMPONENTS / 数据看板。
  * 每篇各自被自己的 match 件渲染；本组件只负责把两篇的章节节点取出来交给件。
@@ -310,7 +327,7 @@ const TeachShell = observer(function TeachShell({ app, env, route }) {
   const learn = store ? store.learn : [];
   // 侧栏显示名（路由名不变）：中文页用中文；英文页保留 route 名（readwrite 统一写成 read&write）。
   // 例外（按业主口径）：hook / wt / ui 保持原样；about 已是品牌名 MDIO。
-  const LEARN_LABEL_ZH = { about: "MDIO", projection: "投影", readwrite: "读写", hook: "hook", pipe: "管道与扩展", arrow: "箭头", plugin: "插件", wt: "wt", ui: "ui" };
+  const LEARN_LABEL_ZH = { about: "MDIO", projection: "投影", readwrite: "读写", hook: "hook", pipe: "管道与扩展", arrow: "arrow", plugin: "插件", wt: "wt", ui: "ui" };
   const learnLabel = (name) => {
     if (lang !== "en") return LEARN_LABEL_ZH[name] || name;
     return name === "readwrite" ? "read&write" : name;
@@ -318,6 +335,7 @@ const TeachShell = observer(function TeachShell({ app, env, route }) {
   const raw = String(route || "");
   const active = raw.indexOf("/teach") === 0 ? (raw.slice(7).split("/")[0] || "antd") : "antd";
   const isAntd = active === "antd" || active === "ui";
+  const heroSpec = TEACH_HERO[active] || null;
   const mainRoot = typeof env.getMainRoot === "function" ? env.getMainRoot() : null;
   const wt = mainRoot && mainRoot.wts ? mainRoot.wts.wt : null;
   const decl = mainRoot && mainRoot.decl;
@@ -326,6 +344,21 @@ const TeachShell = observer(function TeachShell({ app, env, route }) {
   const docPath = isAntd ? baseDoc : (langDoc && wt && wt.byPath && wt.byPath[langDoc] != null ? langDoc : baseDoc);
   const exists = !!(wt && wt.byPath && wt.byPath[docPath] != null);
   const synced = !!(decl && String(decl.route) === docPath);
+  // hero 页：把「标题 + 指定章节」从正文里摘出来，单独成块（拿满主区宽度，同 ui 页首图口径）。
+  // md 层级：文档根的孩子是 h1（整篇一节），指定章节通常是 h1 的孩子 h2 ⇒ 两处都找。
+  const docNode = (() => {
+    if (!heroSpec || !wt || !wt.byPath || !wt.by || wt.byPath[docPath] == null) return null;
+    return wt.by.get(String(wt.byPath[docPath])) || null;
+  })();
+  const docKids = docNode && docNode.kids ? Array.prototype.slice.call(docNode.kids) : [];
+  const heroWant = heroSpec ? (lang === "en" ? heroSpec.en : heroSpec.zh) : "";
+  const heroTitleNode = heroSpec ? (docKids.find((k) => k && k.nt === "h" && (k.lv || 1) === 1) || null) : null;
+  const heroKids = heroTitleNode && heroTitleNode.kids ? Array.prototype.slice.call(heroTitleNode.kids) : [];
+  const matchHero = (list) => list.find((k) => k && k.nt === "h" && (k.lv || 1) === 2 && flatTitle(k.t) === heroWant) || null;
+  const heroSectionNode = heroSpec ? (matchHero(heroTitleNode ? heroKids : docKids) || matchHero(docKids)) : null;
+  const restKids = heroSpec && docNode
+    ? (heroTitleNode ? heroKids.filter((k) => k !== heroSectionNode) : docKids.filter((k) => k !== heroSectionNode))
+    : null;
   const toc = (() => {
     if (isAntd) return ANTD_DOCS(lang).map((d) => d.name);
     try {
@@ -430,10 +463,10 @@ const TeachShell = observer(function TeachShell({ app, env, route }) {
           </nav>
         </aside>
         <main ref={mainRef} className="teach-main min-h-0 flex-1 overflow-y-auto">
-          {isAntd ? h(AntdDocs, { env: env, part: "hero", lang: lang, key: "hero-" + lang }) : null}
+          {isAntd ? h(AntdDocs, { env: env, part: "hero", lang: lang, key: "hero-" + lang }) : (heroSectionNode && synced && env.renderNode ? h("div", { className: "ui-hero", key: "hero-" + lang }, heroTitleNode ? h("h1", { className: "ui-hero-title" }, flatTitle(heroTitleNode.t)) : null, env.renderNode(heroSectionNode)) : null)}
           <div className="teach-layout">
             <div className={"teach-content min-w-0 flex-1" + (active === "antd" || active === "ow" || active === "ui" ? " is-wide" : "") + (active === "projection" ? " is-projection" : "") + (active === "readwrite" || active === "pipe" ? " is-demo" : "")}>
-              {isAntd ? h(AntdDocs, { env: env, lang: lang, key: "docs-" + lang }) : exists ? (synced && env.renderNode ? env.renderNode() : (
+              {isAntd ? h(AntdDocs, { env: env, lang: lang, key: "docs-" + lang }) : exists ? (synced && env.renderNode ? (restKids ? h("div", { className: "mdio-doc", key: "rest-" + lang }, restKids.map((k, i) => h(Fragment, { key: "rest-" + i }, env.renderNode(k)))) : env.renderNode()) : (
                 <div className="gen-teach-pending">{lang === "en" ? "Loading the “" + active + "” page…" : "打开「" + active + "」教学页…"}</div>
               )) : (
                 <div className="gen-teach-pending">
@@ -837,6 +870,8 @@ export default observer(function Home({ app, env }) {
 .ui-hero { padding: 8px 24px 28px; }
 .ui-hero .antd-page-title { margin: 0 0 70px; }
 .ui-hero .ow-crdt-arch-host { height: min(1040px, 96vh) !important; }
+.ui-hero > h1.ui-hero-title { display: block; margin: 8px 0 36px; text-align: center; font-size: 36px; font-weight: 500; line-height: 1.15; letter-spacing: -1px; color: var(--c-bone); border-bottom: 0; padding-bottom: 0; }
+.ui-hero .ow-arrow-host { height: min(960px, 92vh) !important; }
 @media (max-width: 720px) { .ui-hero { padding: 8px 16px 20px; } }
 /* antd 展示与上面 mdio 部分的分隔线（带标签） */
 .antd-split { display: flex; align-items: center; gap: 14px; color: var(--c-slate); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
