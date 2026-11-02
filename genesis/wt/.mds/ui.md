@@ -68,7 +68,7 @@
 - OW_CRDT_ARCH_VIEW: /ui_app/teach/antd_dashboard.md::ANTD.CRDT_ARCH
 - OW_CRDT_ARCH_VIEW: /ui_app/teach/antd_dashboard.en.md::ANTD.CRDT_ARCH
 - UI_SWAP_A: /ui_app/teach/ui_demos.md::UI_DEMOS.演示.swap
-- UI_SWAP_A: /ui_app/teach/ui_demos.en.md::UI_DEMOS.Demos.swap
+- UI_SWAP_B: /ui_app/teach/ui_demos.en.md::UI_DEMOS.Demos.swap
 - UI_FIELD: /ui_app/teach/ui_demos.md::UI_DEMOS.演示.field
 - UI_FIELD: /ui_app/teach/ui_demos.en.md::UI_DEMOS.Demos.field
 ## app
