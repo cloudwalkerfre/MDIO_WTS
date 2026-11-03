@@ -13,9 +13,9 @@
 # mdio_py 运行期错误落盘：exec 异常时会以 root 身份写 genesis 的 /system_error.md，不入库
 **/system_error.md
 
-# 插件运行态：agent/HIS、provider 密钥配置、进程、执行日志、快照、本地 env 均不入库
-**/.mds/llm.md
-**/.mds/llm_config.md
+# 插件运行态：进程、执行日志、快照、本地 env 均不入库
+# llm.md / llm_config.md 是默认 wt 系统文件，入库；发布时用
+# scripts/publish_llm_defaults.sh 以空模板提交（不带 secret/历史）。
 **/.mds/bash.md
 **/.mds/hook.md
 **/.mds/proc.md
